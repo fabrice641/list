@@ -13,7 +13,7 @@ Obiettivo: Realizzare una semplice applicazione To-Do List che consente agli ute
     - Crea un file `index.js` per il tuo codice JavaScript.
 
 2. Importa Bootstrap 5.3.3:
-    - Aggiungi un link al file CSS di Bootstrap 5.3.3 nell'elemento `<head>` di `index.html`.
+    - Aggiungi un link al file CSS di Bootstrap 5.3.3 nell'elemento `<head>` di `index.php`.
     - Aggiungi un link al file JavaScript di Bootstrap 5.3.3 all'interno dell'elemento `<body>`.
 
 3. Layout HTML:
@@ -24,7 +24,7 @@ Obiettivo: Realizzare una semplice applicazione To-Do List che consente agli ute
     - Assicurati che il tutto sia ben stilizzato utilizzando classi Bootstrap.
 
 4. Stile CSS:
-    - Personalizza gli stili di `index.html` nel file `style.css`.
+    - Personalizza gli stili di `index.php` nel file `style.css`.
     - Applica stili alle varie sezioni della pagina, come il `header`, l'`input` e la lista.
     - Sperimenta con colori, dimensioni del carattere e layout.
 
