@@ -79,5 +79,130 @@ Passaggi:
     - Dopo aver aggiunto o rimosso un'attività, aggiorna la lista delle attività visualizzate richiedendo le informazioni dal database tramite AJAX.
 
 6. Test e ottimizzazione:
+
+Creare un'applicazione To-Do List con HTML, CSS, JavaScript e Bootstrap 5.3.3 è un progetto divertente e educativo. Qui di seguito ti guiderò passo per passo nella creazione di un'applicazione To-Do List semplice e funzionale.
+
+Passaggi:
+
+1. Configurazione del progetto:
+    - Crea una nuova cartella di progetto e aprila in Visual Studio Code.
+    - All'interno della cartella, crea tre file: `index.html`, `style.css`, e `index.js`.
+
+2. Importa Bootstrap 5.3.3:
+    - Aggiungi un link al file CSS di Bootstrap 5.3.3 nell'elemento `<head>` di `index.html`:
+
+        ```html
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        ```
+
+    - Aggiungi un link al file JavaScript di Bootstrap 5.3.3 all'interno dell'elemento `<body>`:
+
+        ```html
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        ```
+
+3. Layout HTML:
+    - Crea il layout di base nel file `index.html`:
+
+        ```html
+        <!DOCTYPE html>
+        <html lang="it">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>To-Do List</title>
+            <link rel="stylesheet" href="style.css">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        </head>
+
+        <body>
+            <div class="container">
+                <header class="my-4">
+                    <h1 class="text-center">To-Do List</h1>
+                </header>
+                <div class="input-group mb-3">
+                    <input type="text" id="task-input" class="form-control" placeholder="Aggiungi un'attività">
+                    <button class="btn btn-primary" id="add-task">Aggiungi</button>
+                </div>
+                <ul class="list-group" id="task-list">
+                    <!-- Le attività verranno inserite qui -->
+                </ul>
+            </div>
+
+            <script src="index.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+
+        </html>
+        ```
+
+4. Stile CSS:
+    - Personalizza gli stili CSS nel file `style.css`:
+
+        ```css
+        /* style.css */
+        body {
+            padding-top: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        ul.list-group li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        ```
+
+5. Funzionalità JavaScript:
+    - Scrivi il codice JavaScript per aggiungere e rimuovere attività in `index.js`:
+
+        ```javascript
+        // index.js
+        document.addEventListener('DOMContentLoaded', function () {
+            const taskInput = document.getElementById('task-input');
+            const addTaskButton = document.getElementById('add-task');
+            const taskList = document.getElementById('task-list');
+
+            function addTask() {
+                const taskText = taskInput.value.trim();
+                if (taskText) {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item d-flex justify-content-between';
+                    listItem.innerHTML = `
+                        <span>${taskText}</span>
+                        <button class="btn btn-danger btn-sm remove-task">Rimuovi</button>
+                    `;
+                    taskList.appendChild(listItem);
+                    taskInput.value = '';
+                }
+            }
+
+            function removeTask(event) {
+                const button = event.target;
+                if (button.classList.contains('remove-task')) {
+                    const listItem = button.parentElement;
+                    taskList.removeChild(listItem);
+                }
+            }
+
+            addTaskButton.addEventListener('click', addTask);
+            taskList.addEventListener('click', removeTask);
+        });
+        ```
+
+6. Test e ottimizzazione:
+    - Testa la tua applicazione per assicurarti che funzioni correttamente.
+    - Aggiungi eventuali miglioramenti e ottimizzazioni come ad esempio funzionalità di ordinamento o marcatura delle attività completate.
+
+7. Documentazione:
+    - Aggiungi commenti al tuo codice per spiegare le sezioni più importanti.
+    - Scrivi una breve spiegazione delle funzionalità dell'applicazione.
+
+Ora hai una semplice applicazione To-Do List funzionante! Puoi personalizzare ulteriormente l'aspetto e le funzionalità in base alle tue esigenze.
     - Testa l'applicazione per assicurarti che le operazioni di inserimento e rimozione funzionino correttamente.
     - Assicurati che le funzionalità JavaScript interagiscano correttamente con le pagine PHP. 
