@@ -86,7 +86,7 @@ Passaggi:
 
 1. Configurazione del progetto:
     - Crea una nuova cartella di progetto e aprila in Visual Studio Code.
-    - All'interno della cartella, crea tre file: `index.html`, `style.css`, e `index.js`.
+    - All'interno della cartella, crea tre file: `index.php`, `style.css`, e `index.js`.
 
 2. Importa Bootstrap 5.3.3:
     - Aggiungi un link al file CSS di Bootstrap 5.3.3 nell'elemento `<head>` di `index.html`:
@@ -102,7 +102,7 @@ Passaggi:
         ```
 
 3. Layout HTML:
-    - Crea il layout di base nel file `index.html`:
+    - Crea il layout di base nel file `index.php`:
 
         ```html
         <!DOCTYPE html>
