@@ -8,7 +8,7 @@ Obiettivo: Realizzare una semplice applicazione To-Do List che consente agli ute
 
 1. Configurazione del progetto:
     - Crea una nuova cartella di progetto e aprila in Visual Studio Code.
-    - Crea un file `index.html` per il tuo HTML.
+    - Crea un file `index.php` per il tuo HTML.
     - Crea un file `style.css` per i tuoi stili CSS personalizzati.
     - Crea un file `index.js` per il tuo codice JavaScript.
 
