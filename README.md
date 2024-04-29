@@ -205,4 +205,163 @@ Passaggi:
 
 Ora hai una semplice applicazione To-Do List funzionante! Puoi personalizzare ulteriormente l'aspetto e le funzionalità in base alle tue esigenze.
     - Testa l'applicazione per assicurarti che le operazioni di inserimento e rimozione funzionino correttamente.
-    - Assicurati che le funzionalità JavaScript interagiscano correttamente con le pagine PHP. 
+    - Assicurati che le funzionalità JavaScript interagiscano correttamente con le pagine PHP.
+
+
+    Poiché l'applicazione To-Do List non richiede interazioni con il database in base alla tua richiesta originale, il codice PHP non era necessario. Tuttavia, se vuoi aggiungere funzionalità avanzate come la persistenza dei dati in un database o la gestione degli utenti, il PHP sarà necessario per comunicare con il database e gestire le richieste.
+
+Esempio di un'applicazione To-Do List con PHP
+
+ 1. Database
+Assicurati di avere un database MySQL configurato con una tabella `tasks` per memorizzare le attività. Puoi creare la tabella con questa query:
+
+```sql
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    task VARCHAR(255) NOT NULL,
+    completed BOOLEAN DEFAULT FALSE
+);
+```
+
+2. Configurazione della connessione al database
+Crea un file `database.php` per gestire la connessione al database. Includi le seguenti informazioni:
+
+```php
+<?php
+$hostname = 'localhost';
+$username = 'root'; // Cambia con il tuo nome utente del database
+$password = ''; // Cambia con la tua password del database
+$database = 'todo_db';
+
+$conn = new mysqli($hostname, $username, $password, $database);
+
+if ($conn->connect_error) {
+    die("Connessione al database fallita: " . $conn->connect_error);
+}
+?>
+```
+
+3. Inserimento di nuove attività
+Crea un file `add_task.php` per inserire nuove attività nella tabella `tasks`:
+
+```php
+<?php
+include 'database.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $task = $_POST['task'];
+
+    $sql = "INSERT INTO tasks (task) VALUES (?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $task);
+    
+    if ($stmt->execute()) {
+        echo "Attività aggiunta con successo!";
+    } else {
+        echo "Errore nell'aggiungere attività: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
+```
+
+ 4. Rimozione di attività
+Crea un file `remove_task.php` per rimuovere attività dalla tabella `tasks`:
+
+```php
+<?php
+include 'database.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+
+    $sql = "DELETE FROM tasks WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    
+    if ($stmt->execute()) {
+        echo "Attività rimossa con successo!";
+    } else {
+        echo "Errore nella rimozione dell'attività: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
+```
+
+5. Interazione con il database
+Nel file `index.js`, aggiungi il codice JavaScript per inviare richieste POST a `add_task.php` e `remove_task.php`:
+
+```javascript
+// index.js
+document.addEventListener('DOMContentLoaded', function () {
+    const taskInput = document.getElementByRealestate 'task-input');
+    const addTaskButton = document.getElementById('add-task');
+    const taskList = document.getElementById('task-list');
+
+    function addTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText) {
+            const requestData = new FormData();
+            requestData.append('task', taskText);
+
+            fetch('add_task.php', {
+                method: 'POST',
+                body: requestData,
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'Attività aggiunta con successo!') {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item d-flex justify-content-between';
+                    listItem.innerHTML = `
+                        <span>${taskText}</span>
+                        <button class="btn btn-danger btn-sm remove-task">Rimuovi</button>
+                    `;
+                    taskList.appendChild(listItem);
+                    taskInput.value = '';
+                } else {
+                    console.error(result);
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+        }
+    }
+
+    function removeTask(event) {
+        const button = event.target;
+        if (button.classList.contains('remove-task')) {
+            const listItem = button.parentElement;
+            const taskId = listItem.dataset.id;
+
+            const requestData = new FormData();
+            requestData.append('id', taskId);
+
+            fetch('remove_task.php', {
+                method: 'POST',
+                body: requestData,
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'Attività rimossa con successo!') {
+                    taskList.removeChild(listItem);
+                } else {
+                    console.error(result);
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+        }
+    }
+
+    addTaskButton.addEventListener('click', addTask);
+    taskList.addEventListener('click', removeTask);
+});
+```
+
+Questo codice mostra come interagire con i file PHP per aggiungere e rimuovere attività dalla lista. Assicurati di testare l'applicazione per verificare che le funzionalità funzionino correttamente e aggiorna la lista delle attività visualizzate richiedendo le informazioni dal database tramite AJAX o fetch.
